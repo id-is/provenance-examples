@@ -2,6 +2,9 @@ class: Workflow
 cwlVersion: v1.0
 
 requirements:
+  DockerRequirement:
+    dockerPull:
+      antganios/mnist-python-env:latest
   InitialWorkDirRequirement:
     listing:
     - entryname: download_ds.py
