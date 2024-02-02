@@ -1,11 +1,4 @@
 version: 0.3.0
-inputs:
-  files:
-    - python-tools/download_ds.py
-    - python-tools/train.py
-    - python-tools/evaluate.py
-  parameters:
-    input: mnist.yaml
 workflow:
   type: cwl
   file: mnist.cwl

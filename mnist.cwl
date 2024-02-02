@@ -5,17 +5,7 @@ requirements:
   DockerRequirement:
     dockerPull:
       antganios/mnist-python-env:latest
-  InitialWorkDirRequirement:
-    listing:
-    - entryname: download_ds.py
-      entry:
-        $include: python-tools/download_ds.py
-    - entryname: train.py
-      entry:
-        $include: python-tools/train.py
-    - entryname: evaluate.py
-      entry:
-        $include: python-tools/evaluate.py
+
 inputs:
   - id: dataset_url
     type: string
@@ -63,7 +53,7 @@ steps:
             glob: $(inputs.test_dataset_name) 
 
       baseCommand: python
-      arguments: ["download_ds.py", $(inputs.dataset_url),$(inputs.train_dataset_name),$(inputs.test_dataset_name) ] 
+      arguments: ["/home/app/download_ds.py", $(inputs.dataset_url),$(inputs.train_dataset_name),$(inputs.test_dataset_name) ] 
   train:
     in:
       train_dataset: download_ds/train_dataset
@@ -82,7 +72,7 @@ steps:
             glob: $(inputs.model_name)
 
       baseCommand: python
-      arguments: ["train.py", $(inputs.train_dataset.path),$(inputs.model_name)] 
+      arguments: ["/home/app/train.py", $(inputs.train_dataset.path),$(inputs.model_name)] 
 
   evaluate:
     in:
@@ -104,4 +94,4 @@ steps:
             glob: $(inputs.results_name)
 
       baseCommand: python
-      arguments: ["evaluate.py", $(inputs.test_dataset.path), $(inputs.model.path), $(inputs.results_name)] 
+      arguments: ["/home/app/evaluate.py", $(inputs.test_dataset.path), $(inputs.model.path), $(inputs.results_name)] 
