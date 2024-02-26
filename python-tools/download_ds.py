@@ -1,4 +1,3 @@
-import os
 import urllib.request
 import gzip
 import pickle

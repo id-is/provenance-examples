@@ -28,7 +28,6 @@ outputs:
     type: File
     outputSource: evaluate/results
 
-
 steps:
   download_ds:
     in:
@@ -51,9 +50,8 @@ steps:
           type: File
           outputBinding:
             glob: $(inputs.test_dataset_name) 
-
       baseCommand: python
-      arguments: ["/home/app/download_ds.py", $(inputs.dataset_url),$(inputs.train_dataset_name),$(inputs.test_dataset_name) ] 
+      arguments: ["/app/download_ds.py", $(inputs.dataset_url),$(inputs.train_dataset_name),$(inputs.test_dataset_name) ] 
   train:
     in:
       train_dataset: download_ds/train_dataset
@@ -70,9 +68,8 @@ steps:
           type: File
           outputBinding:
             glob: $(inputs.model_name)
-
       baseCommand: python
-      arguments: ["/home/app/train.py", $(inputs.train_dataset.path),$(inputs.model_name)] 
+      arguments: ["/app/train.py", $(inputs.train_dataset.path),$(inputs.model_name)] 
 
   evaluate:
     in:
@@ -92,6 +89,5 @@ steps:
           type: File
           outputBinding:
             glob: $(inputs.results_name)
-
       baseCommand: python
-      arguments: ["/home/app/evaluate.py", $(inputs.test_dataset.path), $(inputs.model.path), $(inputs.results_name)] 
+      arguments: ["/app/evaluate.py", $(inputs.test_dataset.path), $(inputs.model.path), $(inputs.results_name)] 
