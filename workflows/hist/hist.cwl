@@ -7,8 +7,9 @@ requirements:
       antganios/mnist-python-env:latest
 
 inputs:
-  - id: txt_file
+  - id: input_file
     type: File
+    valueFromEntity: "{{5}}"
   - id: plot_name
     type: string
     default: "plot.png"
@@ -21,13 +22,13 @@ outputs:
 steps:
   plot:
     in:
-      txt_file: txt_file
+      input_file: input_file
       plot_name: plot_name
     out: [plot_file]
     run:
       class: CommandLineTool
       inputs:
-        txt_file: File
+        input_file: File
         plot_name: string
       outputs:
         - id: plot_file
@@ -35,5 +36,5 @@ steps:
           outputBinding:
             glob: $(inputs.plot_name) 
       baseCommand: python
-      arguments: ["/app/plot.py", $(inputs.txt_file.path),$(inputs.plot_name)] 
+      arguments: ["/app/plot.py", $(inputs.input_file.path),$(inputs.plot_name)] 
  

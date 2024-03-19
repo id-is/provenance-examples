@@ -1,7 +1,0 @@
-version: 0.3.0
-workflow:
-  type: cwl
-  file: mnist.cwl
-outputs:
-  files:
-    - outputs/results.txt
